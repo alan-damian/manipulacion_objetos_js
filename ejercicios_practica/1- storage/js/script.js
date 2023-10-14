@@ -11,6 +11,16 @@
     extra al programa.
 /*
 
+/**/
+
+
+function registro() {
+    const login = document.getElementById('login');
+    login.classList.add('hidden');
+    const logout = document.getElementById('logout');
+    logout.classList.remove('hidden');
+}
+
 /* 1 - Enunciado
 
 - Debera capturar el evento "onclick" del boton "Ingresar"
@@ -20,6 +30,25 @@ y leer los datos ingresados en "usuario" y "email".
 con los datos almacenados en memoria, a fin de darle la bienvenida al usuario logeado.
 
 */
+
+const btnIngr = document.getElementById('btnIngresar')
+const campemail = document.getElementById('email')
+const campuser = document.getElementById('usuario')
+
+btnIngr.onclick = () => {
+    localStorage.setItem('email', campemail.value);
+    localStorage.setItem('user', campuser.value);
+
+    let userName = localStorage.getItem('user');
+    let userEmail = localStorage.getItem('email');
+
+    document.getElementById('usuarioLogeado').innerHTML=userName;
+    document.getElementById('emailLogeado').innerHTML=userEmail;
+
+    registro();
+}
+
+
 
 /* 2 - Enunciado
 
@@ -32,6 +61,18 @@ y deberá revelar la sección "logout" (quitar la clase hidden).
 
 */
 
+if (localStorage.getItem('user') && localStorage.getItem('email') !==null) {
+
+    let userName = localStorage.getItem('user');
+    let userEmail = localStorage.getItem('email');
+    
+    document.getElementById('usuarioLogeado').innerHTML=userName;
+    document.getElementById('emailLogeado').innerHTML=userEmail;
+   
+   registro();
+}
+
+
 /* 3 - Enunciado
 
 - Debera capturar el evento "onclick" del boton "Salir". Cuando este
@@ -41,3 +82,10 @@ volverse a cargar debería aparecer nuevamente la sección de bienvenida
 ya que no debería haber más datos en memoria cargados.
 
 */
+
+
+const salir = document.querySelector('#btnSalir')
+salir.onclick = () => {
+    localStorage.clear()
+    window.location.reload()
+}
